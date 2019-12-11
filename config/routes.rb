@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :musical_instruments
   resources :music_genres
   post 'auth/login', to: 'authentication#authenticate'
+  post 'signup', to: 'users#create'
 end

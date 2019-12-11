@@ -8,9 +8,10 @@ RSpec.describe 'Appointments API' do
   let!(:appointments) { create_list(:appointment, 20, date: Time.now, music_teacher_id: music_teacher.id, user_id: user.id) }
   let(:music_teacher_id) { music_teacher.id }
   let(:id) { appointments.first.id }
+  let(:headers) { valid_headers }
 
   describe 'GET /appointments' do
-    before { get '/appointments' }
+    before { get '/appointments', params: {}, headers: headers }
 
     context 'when appointments exist' do
       it 'returns status code 200' do
@@ -24,7 +25,7 @@ RSpec.describe 'Appointments API' do
   end
 
   describe 'GET /appointments/:id' do
-    before { get "/appointments/#{id}" }
+    before { get "/appointments/#{id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the appointment' do
@@ -59,7 +60,7 @@ RSpec.describe 'Appointments API' do
     let(:valid_attributes) { { music_teacher_id: music_teacher_.id, user_id: user_.id, date: Time.now } }
 
     # context 'when the request is valid' do
-    #   before { post '/appointments', params: valid_attributes }
+    #   before { post '/appointments', params: valid_attributes, headers: headers }
 
     #   it 'creates an appointment' do
     #     expect(json['music_teacher_id']).to eq(music_teacher_.id)
@@ -76,7 +77,8 @@ RSpec.describe 'Appointments API' do
     # end
 
     context 'when the request is invalid' do
-      before { post '/appointments', params: { date: nil } }
+      let(:invalid_attributes) { { date: nil, user_id: nil }.to_json }
+      before { post '/appointments', params: invalid_attributes, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -84,17 +86,17 @@ RSpec.describe 'Appointments API' do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: Music teacher must exist, User must exist, Date can't be blank/)
+          .to match(/Validation failed: Music teacher must exist, Date can't be blank/)
       end
     end
   end
 
   # Test suite for PUT /appointments/:id
   describe 'PUT /appointments/:id' do
-    let(:valid_attributes) { { date: Time.now } }
+    let(:valid_attributes) { { date: Time.now }.to_json }
 
     context 'when the record exists' do
-      before { put "/appointments/#{id}", params: valid_attributes }
+      before { put "/appointments/#{id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -108,7 +110,7 @@ RSpec.describe 'Appointments API' do
 
   # Test suite for DELETE /appointments/:id
   describe 'DELETE /appointments/:id' do
-    before { delete "/appointments/#{id}" }
+    before { delete "/appointments/#{id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
