@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MusicTeacher < ApplicationRecord
   has_many :appointments, dependent: :destroy
   has_and_belongs_to_many :music_genres
