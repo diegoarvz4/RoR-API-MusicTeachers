@@ -1,3 +1,4 @@
+
 require 'rails_helper'
 
 RSpec.describe 'Music Teachers API', type: :request do
@@ -20,7 +21,6 @@ RSpec.describe 'Music Teachers API', type: :request do
       expect(response).to have_http_status(200)
     end
   end
-
 
   # Test suite for GET /music_teachers/:id
   describe 'GET /music_teachers/:id' do
@@ -53,7 +53,7 @@ RSpec.describe 'Music Teachers API', type: :request do
   # Test suite for POST /music_teachers
   describe 'POST /music_teachers' do
     # valid payload
-    let(:valid_attributes) { { name: 'Jimmy Page'} }
+    let(:valid_attributes) { { name: 'Jimmy Page' } }
 
     context 'when the request is valid' do
       before { post '/music_teachers', params: valid_attributes }
