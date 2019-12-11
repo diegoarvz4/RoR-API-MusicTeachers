@@ -15,7 +15,8 @@ class MusicTeachersController < ApplicationController
 
   # GET /music_teachers/:id
   def show
-    json_response(@music_teacher)
+    # json_response(@music_teacher)
+    render json: @music_teacher, include: [:appointments, :music_genres,:musical_instruments], status: :ok
   end
 
   # PUT /music_teachers/:id
