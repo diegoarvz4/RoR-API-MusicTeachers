@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :music_teachers 
   resources :appointments
   resources :musical_instruments
+  resources :music_genres
 end
