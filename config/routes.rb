@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :appointments
   resources :musical_instruments
   resources :music_genres
+  post 'auth/login', to: 'authentication#authenticate'
 end
