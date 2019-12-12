@@ -1,5 +1,5 @@
 class MusicTeachersController < ApplicationController
-  before_action :set_music_teacher, only: [:show, :update, :destroy]
+  before_action :set_music_teacher, only: [:show, :update, :destroy, :add_music_genre, :add_musical_instrument]
 
   # GET /music_teachers
   def index
@@ -31,6 +31,17 @@ class MusicTeachersController < ApplicationController
     head :no_content
   end
 
+  def add_music_genre
+    @music_genre = MusicGenre.find(params[:music_genre_id])
+    @music_teacher.music_genres << @music_genre
+    json_response(@music_genre, :created)
+  end
+
+  def add_musical_instrument
+    @musical_instrument = MusicalInstrument.find(params[:musical_instrument_id])
+    @music_teacher.musical_instruments << @musical_instrument
+    json_response(@musical_instrument, :created)
+  end
   private
 
   def music_teacher_params
@@ -40,5 +51,9 @@ class MusicTeachersController < ApplicationController
 
   def set_music_teacher
     @music_teacher = MusicTeacher.find(params[:id])
+  end
+
+  def music_teacher_genres_params
+    params.permit(:music_genre_id)
   end
 end

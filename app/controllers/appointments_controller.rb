@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AppointmentsController < ApplicationController
   before_action :set_appointments
   before_action :set_appointment, only: [:show, :update, :destroy]
@@ -39,5 +41,4 @@ class AppointmentsController < ApplicationController
   def set_appointment
     @appointment = Appointment.find_by!(id: params[:id])
   end
-
 end
