@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :musical_instrument do
-    kind { 'Guitar' }
+    kind { Faker::Name.unique.name }
   end
 end

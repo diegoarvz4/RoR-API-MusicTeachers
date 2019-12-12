@@ -5,11 +5,12 @@ RSpec.describe 'Music Teachers API', type: :request do
   # initialize test data
   let!(:music_teachers) { create_list(:music_teacher, 10) }
   let(:music_teacher_id) { music_teachers.first.id }
-
+  let!(:user) { create(:user) }
+  let(:headers) { valid_headers }
   # Test suite for GET /music_teachers
   describe 'GET /music_teachers' do
     # make HTTP get request before each example
-    before { get '/music_teachers' }
+    before { get '/music_teachers', params: {}, headers: headers }
 
     it 'returns music_teachers' do
       # Note `json` is a custom helper to parse JSON responses
@@ -24,7 +25,7 @@ RSpec.describe 'Music Teachers API', type: :request do
 
   # Test suite for GET /music_teachers/:id
   describe 'GET /music_teachers/:id' do
-    before { get "/music_teachers/#{music_teacher_id}" }
+    before { get "/music_teachers/#{music_teacher_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the music_teacher' do
@@ -53,10 +54,10 @@ RSpec.describe 'Music Teachers API', type: :request do
   # Test suite for POST /music_teachers
   describe 'POST /music_teachers' do
     # valid payload
-    let(:valid_attributes) { { name: 'Jimmy Page' } }
+    let(:valid_attributes) { { name: 'Jimmy Page' }.to_json }
 
     context 'when the request is valid' do
-      before { post '/music_teachers', params: valid_attributes }
+      before { post '/music_teachers', params: valid_attributes, headers: headers }
 
       it 'creates a music_teacher' do
         expect(json['name']).to eq('Jimmy Page')
@@ -68,7 +69,7 @@ RSpec.describe 'Music Teachers API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/music_teachers', params: { name: '' } }
+      before { post '/music_teachers', params: { name: '' }.to_json, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -83,10 +84,10 @@ RSpec.describe 'Music Teachers API', type: :request do
 
   # Test suite for PUT /music_teachers/:id
   describe 'PUT /music_teachers/:id' do
-    let(:valid_attributes) { { name: 'Robert Plant' } }
+    let(:valid_attributes) { { name: 'Robert Plant' }.to_json }
 
     context 'when the record exists' do
-      before { put "/music_teachers/#{music_teacher_id}", params: valid_attributes }
+      before { put "/music_teachers/#{music_teacher_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -100,7 +101,7 @@ RSpec.describe 'Music Teachers API', type: :request do
 
   # Test suite for DELETE /music_teachers/:id
   describe 'DELETE /music_teachers/:id' do
-    before { delete "/music_teachers/#{music_teacher_id}" }
+    before { delete "/music_teachers/#{music_teacher_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

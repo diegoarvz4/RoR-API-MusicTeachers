@@ -6,11 +6,12 @@ RSpec.describe 'Music Genres API', type: :request do
   # initialize test data
   let!(:music_genres) { create_list(:music_genre, 10) }
   let(:music_genre_id) { music_genres.first.id }
-
+  let!(:user) { create(:user) }
+  let(:headers) { valid_headers }
   # Test suite for GET /music_genres
   describe 'GET /music_genres' do
     # make HTTP get request before each example
-    before { get '/music_genres' }
+    before { get '/music_genres', params: {}, headers: headers }
 
     it 'returns music_genres' do
       # Note `json` is a custom helper to parse JSON responses
@@ -25,7 +26,7 @@ RSpec.describe 'Music Genres API', type: :request do
 
   # Test suite for GET /music_genres/:id
   describe 'GET /music_genres/:id' do
-    before { get "/music_genres/#{music_genre_id}" }
+    before { get "/music_genres/#{music_genre_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the music_genre' do
@@ -54,10 +55,10 @@ RSpec.describe 'Music Genres API', type: :request do
   # Test suite for POST /music_genres
   describe 'POST /music_genres' do
     # valid payload
-    let(:valid_attributes) { { category: 'Pop' } }
+    let(:valid_attributes) { { category: 'Pop' }.to_json }
 
     context 'when the request is valid' do
-      before { post '/music_genres', params: valid_attributes }
+      before { post '/music_genres', params: valid_attributes, headers: headers }
 
       it 'creates a music_genre' do
         expect(json['category']).to eq('Pop')
@@ -69,7 +70,7 @@ RSpec.describe 'Music Genres API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/music_genres', params: { category: '' } }
+      before { post '/music_genres', params: { category: '' }.to_json, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -84,10 +85,10 @@ RSpec.describe 'Music Genres API', type: :request do
 
   # Test suite for PUT /music_genres/:id
   describe 'PUT /music_genres/:id' do
-    let(:valid_attributes) { { category: 'Jazz' } }
+    let(:valid_attributes) { { category: 'Jazz' }.to_json }
 
     context 'when the record exists' do
-      before { put "/music_genres/#{music_genre_id}", params: valid_attributes }
+      before { put "/music_genres/#{music_genre_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -101,7 +102,7 @@ RSpec.describe 'Music Genres API', type: :request do
 
   # Test suite for DELETE /music_genres/:id
   describe 'DELETE /music_genres/:id' do
-    before { delete "/music_genres/#{music_genre_id}" }
+    before { delete "/music_genres/#{music_genre_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

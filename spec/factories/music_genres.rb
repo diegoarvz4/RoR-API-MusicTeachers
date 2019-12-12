@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :music_genre do
-    category { 'Rock' }
+    category { Faker::Name.unique.name }
   end
 end

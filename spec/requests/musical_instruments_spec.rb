@@ -3,17 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Musical Instruments API', kind: :request do
-  # initialize test data
   let!(:musical_instruments) { create_list(:musical_instrument, 10) }
   let(:musical_instrument_id) { musical_instruments.first.id }
-
-  # Test suite for GET /musical_instruments
+  let!(:user) { create(:user) }
+  let(:headers) { valid_headers }
   describe 'GET /musical_instruments' do
-    # make HTTP get request before each example
-    before { get '/musical_instruments' }
+    before { get '/musical_instruments', params: {}, headers: headers }
 
     it 'returns musical_instruments' do
-      # Note `json` is a custom helper to parse JSON responses
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
@@ -23,9 +20,8 @@ RSpec.describe 'Musical Instruments API', kind: :request do
     end
   end
 
-  # Test suite for GET /musical_instruments/:id
   describe 'GET /musical_instruments/:id' do
-    before { get "/musical_instruments/#{musical_instrument_id}" }
+    before { get "/musical_instruments/#{musical_instrument_id}", params: {}, headers: headers }
 
     context 'when the record exists' do
       it 'returns the musical_instrument' do
@@ -51,13 +47,11 @@ RSpec.describe 'Musical Instruments API', kind: :request do
     end
   end
 
-  # Test suite for POST /musical_instruments
   describe 'POST /musical_instruments' do
-    # valid payload
-    let(:valid_attributes) { { kind: 'Piano' } }
+    let(:valid_attributes) { { kind: 'Piano' }.to_json }
 
     context 'when the request is valid' do
-      before { post '/musical_instruments', params: valid_attributes }
+      before { post '/musical_instruments', params: valid_attributes, headers: headers }
 
       it 'creates a musical_instrument' do
         expect(json['kind']).to eq('Piano')
@@ -69,7 +63,7 @@ RSpec.describe 'Musical Instruments API', kind: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/musical_instruments', params: { kind: '' } }
+      before { post '/musical_instruments', params: { kind: '' }.to_json, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -82,12 +76,11 @@ RSpec.describe 'Musical Instruments API', kind: :request do
     end
   end
 
-  # Test suite for PUT /musical_instruments/:id
   describe 'PUT /musical_instruments/:id' do
-    let(:valid_attributes) { { kind: 'Guitar' } }
+    let(:valid_attributes) { { kind: 'Guitar' }.to_json }
 
     context 'when the record exists' do
-      before { put "/musical_instruments/#{musical_instrument_id}", params: valid_attributes }
+      before { put "/musical_instruments/#{musical_instrument_id}", params: valid_attributes, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -99,9 +92,8 @@ RSpec.describe 'Musical Instruments API', kind: :request do
     end
   end
 
-  # Test suite for DELETE /musical_instruments/:id
   describe 'DELETE /musical_instruments/:id' do
-    before { delete "/musical_instruments/#{musical_instrument_id}" }
+    before { delete "/musical_instruments/#{musical_instrument_id}", params: {}, headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
