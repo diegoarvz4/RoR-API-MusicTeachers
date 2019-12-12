@@ -34,7 +34,7 @@ To get a local copy up and running follow these simple example steps.
   Run the following command on your terminal: `$ rails start`, this will run a local server which can be accesed via web browser in `https://localhost:3000`
 
 ## Run tests
-  To run the tests simple run the following command on your terminal: `$ rspec`
+  To run the tests simple run the following command on your terminal: `$ bundle exec rspec`
 ## Deployment
   Comming Soon
 
