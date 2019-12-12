@@ -35,7 +35,7 @@ class MusicTeachersController < ApplicationController
 
   def music_teacher_params
     # whitelist params
-    params.permit(:name)
+    params.permit(:name, :years_exp, :ranking)
   end
 
   def set_music_teacher

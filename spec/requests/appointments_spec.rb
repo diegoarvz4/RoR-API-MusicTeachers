@@ -59,22 +59,17 @@ RSpec.describe 'Appointments API' do
     let(:user_) { create(:user) }
     let(:valid_attributes) { { music_teacher_id: music_teacher_.id, user_id: user_.id, date: Time.now } }
 
-    # context 'when the request is valid' do
-    #   before { post '/appointments', params: valid_attributes, headers: headers }
+    context 'when the request is valid' do
+      before { post '/appointments', params: valid_attributes.to_json, headers: headers }
 
-    #   it 'creates an appointment' do
-    #     expect(json['music_teacher_id']).to eq(music_teacher_.id)
-    #   end
+      it 'creates an appointment' do
+        expect(json['music_teacher_id']).to eq(music_teacher_.id)
+      end
 
-    #   it 'returns status code 201' do
-    #     expect(response).to have_http_status(201)
-    #   end
-
-    #   it 'returns a validation failure message' do
-    #     expect(response.body)
-    #       .to match(/Validation failed: Music teacher must exist, User must exist, Date can't be blank/)
-    #   end
-    # end
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
 
     context 'when the request is invalid' do
       let(:invalid_attributes) { { date: nil, user_id: nil }.to_json }
