@@ -4,7 +4,7 @@ class MusicTeachersController < ApplicationController
   # GET /music_teachers
   def index
     @music_teachers = MusicTeacher.all
-    json_response(@music_teachers)
+    render json: @music_teachers, include: [:appointments, :music_genres,:musical_instruments], status: :ok
   end
 
   # POST /music_teachers
