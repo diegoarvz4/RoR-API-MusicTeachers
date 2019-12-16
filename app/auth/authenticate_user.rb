@@ -8,7 +8,7 @@ class AuthenticateUser
   # Service entry point
   def call
     if user
-      return [JsonWebToken.encode(user_id: user.id), {username: @user.username, email: @user.email}]
+      return [JsonWebToken.encode(user_id: user.id), {id: @user.id, username: @user.username, email: @user.email}]
     end
   end
 
