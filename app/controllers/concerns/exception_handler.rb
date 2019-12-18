@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 module ExceptionHandler
-  # provides the more graceful `included` method
   extend ActiveSupport::Concern
 
   class AuthenticationError < StandardError; end
@@ -19,13 +20,11 @@ module ExceptionHandler
 
   private
 
-  # JSON response with message; Status code 422 - unprocessable entity
-  def four_twenty_two(e)
-    json_response({ message: e.message }, :unprocessable_entity)
+  def four_twenty_two(error)
+    json_response({ message: error.message }, :unprocessable_entity)
   end
 
-  # JSON response with message; Status code 401 - Unauthorized
-  def unauthorized_request(e)
-    json_response({ message: e.message }, :unauthorized)
+  def unauthorized_request(error)
+    json_response({ message: error.message }, :unauthorized)
   end
 end
