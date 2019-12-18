@@ -2,18 +2,15 @@
 
 > This is a Ruby on Rails API where data about Music Teachers can be handled with CRUD operations.
 
-# Screenshot coming Soon!
-
 ## Built With
 
 - Ruby on Rails 5.2.3
 - RSpec
 - PostgreSQL
 
-## Live Demo
+## API Endpoint
 
- ### Coming Soon!
-
+https://fathomless-headland-51075.herokuapp.com/
 
 ## Getting Started
 
@@ -35,9 +32,6 @@ To get a local copy up and running follow these simple example steps.
 
 ## Run tests
   To run the tests simple run the following command on your terminal: `$ bundle exec rspec`
-## Deployment
-  Comming Soon
-
 
 # Authors
 

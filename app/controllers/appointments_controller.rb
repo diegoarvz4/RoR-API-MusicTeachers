@@ -2,7 +2,7 @@
 
 class AppointmentsController < ApplicationController
   before_action :set_appointments
-  before_action :set_appointment, only: [:show, :update, :destroy]
+  before_action :set_appointment, only: %i[show update destroy]
 
   def index
     appointments = current_user.appointments
