@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :music_teachers 
-  resources :appointments
-  resources :musical_instruments
-  resources :music_genres
+  resources :music_teachers, only: :index
+  resources :appointments, except: %i[show update edit]
+  resources :musical_instruments, only: :index
+  resources :music_genres, only: :index
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
-  post '/music_teachers/:id/add_music_genre', to: 'music_teachers#add_music_genre'
-  post '/music_teachers/:id/add_musical_instrument', to: 'music_teachers#add_musical_instrument'
 end
