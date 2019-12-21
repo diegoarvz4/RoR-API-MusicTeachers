@@ -3,6 +3,8 @@
 class MusicGenresController < ApplicationController
   def index
     @music_genres = MusicGenre.all
-    json_response(@music_genres)
+    render json: @music_genres,
+           except: %i[created_at updated_at],
+           status: :ok
   end
 end
