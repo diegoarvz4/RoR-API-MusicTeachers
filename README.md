@@ -1,12 +1,13 @@
 # Ruby on Rails API - Music Teachers
 
-> This is a Ruby on Rails API where data about Music Teachers can be handled with CRUD operations.
+> This is a Ruby on Rails API where data about Music Teachers can be retrieved. It allows to create, show and delete appointments with proper user authentication.
 
 ## Built With
 
 - Ruby on Rails 5.2.3
 - RSpec
 - PostgreSQL
+- JWT
 
 ## API Endpoint
 
@@ -32,6 +33,10 @@ To get a local copy up and running follow these simple example steps.
 
 ## Run tests
   To run the tests simple run the following command on your terminal: `$ bundle exec rspec`
+  
+## Future Features
+- Update for appointments
+- Users roles (student and teacher)
 
 # Authors
 
