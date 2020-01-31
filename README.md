@@ -17,9 +17,9 @@ https://fathomless-headland-51075.herokuapp.com/
 To get a local copy up and running follow these simple example steps.
 
 ## Prerequisites
-  Ruby -v > 2
-  Rails -v 5.2.3
-  A web Browser. 
+  - Ruby -v > 2
+  - Rails -v 5.2.3
+  - A web Browser. 
 
 ## Setup
   Clone or download this Repository.
