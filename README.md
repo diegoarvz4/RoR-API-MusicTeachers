@@ -2,6 +2,10 @@
 
 > This is a Ruby on Rails API where data about Music Teachers can be retrieved. It allows to create, show and delete appointments with proper user authentication.
 
+## Screenshots
+
+> No screenshot since it's only an API :)
+
 ## Built With
 
 - Ruby on Rails 5.2.3
